@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PickUp Lines - Fun & Flirty</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #ff7e5f, #feb47b);
+      color: white;
+      text-align: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+    
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: #fff;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+    }
+
+    .categories {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+
+    .category {
+      background: linear-gradient(45deg, #ff0099, #ff6600);
+      color: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: transform 0.3s, background 0.3s;
+      font-size: 1.2rem;
+      width: 180px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .category:hover {
+      transform: scale(1.1);
+      background: linear-gradient(45deg, #ff6600, #ff0099);
+    }
+
+    #line-container {
+      display: none;
+      margin-top: 30px;
+    }
+
+    .line {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 15px;
+      margin: 10px 0;
+      font-size: 1.5rem;
+      color: #fff;
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+      font-weight: bold;
+    }
+
+    .copy-btn {
+      background-color: #fff;
+      color: #333;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .copy-btn:hover {
+      background-color: #333;
+      color: #fff;
+    }
+
+    #random-btn {
+      margin-top: 20px;
+      padding: 12px 24px;
+      background-color: #feb47b;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      color: #fff;
+    }
+
+    #random-btn:hover {
+      background-color: #ff7e5f;
+    }
+
+    .categories-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Abiodun's pick up lines lab</h1>
+<h3> scroll down for result after selecting category</h3>
+
+  <div class="categories">
+    <div class="category" onclick="loadCategory('Romantic')">Romantic</div>
+    <div class="category" onclick="loadCategory('Funny')">Funny</div>
+    <div class="category" onclick="loadCategory('Flirty')">Flirty</div>
+    <div class="category" onclick="loadCategory('Cute')">Cute</div>
+    <div class="category" onclick="loadCategory('Inspirational')">Inspirational</div>
+    <div class="category" onclick="loadCategory('Cheesy')">Cheesy</div>
+    <div class="category" onclick="loadCategory('Nerdy')">Nerdy</div>
+    <div class="category" onclick="loadCategory('Sweet')">Sweet</div>
+    <div class="category" onclick="loadCategory('Sarcastic')">Sarcastic</div>
+    <div class="category" onclick="loadCategory('Dirty')">Dirty</div>
+  </div>
+
+  <div id="line-container">
+    <div id="line" class="line"></div>
+    <button id="random-btn" onclick="showRandomLine()">Show Random Line</button>
+    <button class="copy-btn" onclick="copyLine()">Copy Line</button>
+  </div>
+
+  <script>
+    const pickupLines = {
+      "Romantic": [
+        "Are you a magician? Because whenever I look at you, everyone else disappears.",
+        "You are the reason I smile even on the toughest days.",
+        "I must be a snowflake because I’ve fallen for you.",
+        "Is your name Google? Because you have everything I’ve been searching for.",
+        "I love you more than coffee, but please don’t make me choose.",
+        "You light up my world like nobody else.",
+        "Every love story is beautiful, but ours is my favorite.",
+        "You had me at hello.",
+        "I think I’ve just found my happily ever after.",
+        "You make my heart skip a beat.",
+        // Add 50 more romantic lines
+      ],
+      "Funny": [
+        "Are you French? Because Eiffel for you!",
+        "Do you have a map? I keep getting lost in your eyes.",
+        "Is your name Wi-Fi? Because I’m feeling a connection.",
+        "I must be a light bulb because you’ve just brightened my day!",
+        "Are you a parking ticket? Because you’ve got ‘FINE’ written all over you.",
+        "Is your dad a boxer? Because you’re a knockout.",
+        "I was blinded by your beauty... I’m going to need your name and number for insurance purposes.",
+        "Do you have a Band-Aid? Because I just scraped my knee falling for you.",
+        "Are you a beaver? Because daaaaam.",
+        "I’m not a photographer, but I can picture us together.",
+        // Add 50 more funny lines
+      ],
+      "Flirty": [
+        "Is it hot in here or is it just you?",
+        "Are you a campfire? Because you’re hot and I want s’more.",
+        "If you were a vegetable, you’d be a ‘cute-cumber’!",
+        "Can I follow you home? Cause my parents always told me to follow my dreams.",
+        "Are you made of copper and tellurium? Because you’re Cu-Te.",
+        "Are you from Paris? Because Eiffel for you.",
+        "If beauty were time, you’d be an eternity.",
+        "Are you a time traveler? Because I see you in my future.",
+        "Do you believe in love at first sight, or should I walk by again?",
+        "Is your name Chapstick? Because you’re da balm.",
+        // Add 50 more flirty lines
+      ],
+      "Cute": [
+        "If I could rearrange the alphabet, I would put U and I together.",
+        "Are you a time traveler? Because I see you in my future.",
+        "Are you a beaver? Because daaaaam.",
+        "Are you a cupcake? Because you’re sweet and irresistible.",
+        "I must be a camera, because every time I see you, I smile.",
+        "Are you a star? Because your beauty lights up the night.",
+        "Are you a dictionary? Because you add meaning to my life.",
+        "Is your dad an artist? Because you’re a masterpiece.",
+        "Are you a snowstorm? Because you’re making my heart race.",
+        "I’m no mathematician, but I’m pretty sure we’re a perfect match.",
+        // Add 50 more cute lines
+      ],
+      "Inspirational": [
+        "The best way to predict the future is to create it.",
+        "Success is not final, failure is not fatal: It’s the courage to continue that counts.",
+        "Believe in yourself and all that you are. Know that there is something inside you that is greater than any obstacle.",
+        "Life is what happens when you’re busy making other plans.",
+        "Don’t watch the clock; do what it does. Keep going.",
+        "You are never too old to set another goal or to dream a new dream.",
+        "The only way to do great work is to love what you do.",
+        "Your time is limited, so don’t waste it living someone else’s life.",
+        "The journey of a thousand miles begins with a single step.",
+        "Dream big and dare to fail.",
+        // Add 50 more inspirational lines
+      ],
+      "Cheesy": [
+        "Are you a banana? Because I find you a-peeling!",
+        "Is your dad a boxer? Because you’re a knockout.",
+        "Do you have a Band-Aid? Because I just scraped my knee falling for you.",
+        "Are you a beehive? Because you’re making me feel all buzzy.",
+        "I’m not a photographer, but I can picture us together.",
+        "Are you a magician? Because whenever I look at you, everyone else disappears.",
+        "Are you a campfire? Because you’re hot and I want s’more.",
+        "Are you a parking ticket? Because you’ve got ‘FINE’ written all over you.",
+        "If I could rearrange the alphabet, I would put U and I together.",
+        "You must be tired because you’ve been running through my mind all day.",
+        // Add 50 more cheesy lines
+      ],
+      "Nerdy": [
+        "Are you made of copper and tellurium? Because you’re Cu-Te.",
+        "Are you a carbon sample? Because I’m feeling a chemical reaction.",
+        "Do you have a sine? Because you make my heart oscillate.",
+        "You must be the square root of -1, because you can’t be real.",
+        "Are you a 45-degree angle? Because you’re acute-y.",
+        "Are we in a black hole? Because our attraction is irresistible.",
+        "Are you a photon? Because you light up my world.",
+        "You must be made of protons, neutrons, and electrons, because you’re making me feel all charged up!",
+        "Are you the Higgs boson? Because you’ve just given me mass.",
+        "Are you a software update? Because you make everything better.",
+        // Add 50 more nerdy lines
+      ],
+      "Sweet": [
+        "You're the sweetest thing that's ever happened to me.",
+        "Every time I see you, my heart skips a beat.",
+        "You are the icing on the cake of my life.",
+        "You must be made of sugar because you’re so sweet.",
+        "Is your name Honey? Because you're so sweet.",
+        "You bring so much joy to my life.",
+        "When I look at you, everything else fades away.",
+        "You complete me.",
+        "You're sweeter than chocolate.",
+        "You make life sweeter just by being you.",
+        // Add 50 more sweet lines
+      ],
+      "Sarcastic": [
+        "Oh, I’m sorry, did I interrupt your perfect life?",
+        "I’m not arguing, I’m just explaining why I’m right.",
+        "You’re the reason I can’t keep a straight face.",
+        "If I had a dollar for every time you made me smile, I’d be rich.",
+        "I don’t always have the best lines, but when I do, they’re sarcastic.",
+        "You’re not just a pretty face, you’re also a great source of amusement.",
+        "Do you mind if I copy your homework? I need some sarcasm in my life.",
+        "If being cute was a crime, you’d be serving a life sentence.",
+        "I don’t always speak my mind, but when I do, it’s usually sarcasm.",
+        "I'm not saying I’m perfect, but I’m probably the best option you have.",
+        // Add 50 more sarcastic lines
+      ],
+      "Dirty": [
+        "Are you a magician? Because when I look at you, everyone else disappears... except my fantasies.",
+        "You must be a campfire because you're hot and I want s’more.",
+        "Are you a thief? Because you stole my heart.",
+        "Can I follow you home? Because my parents always told me to follow my dreams.",
+        "Are you a parking ticket? Because you’ve got ‘FINE’ written all over you.",
+        "Is it hot in here, or is it just you?",
+        "Are you French? Because Eiffel for you!",
+        "Are you a campfire? Because you’re hot and I want s’more.",
+        "Do you believe in love at first sight, or should I walk by again?",
+        "If I were a cat, I’d spend all 9 lives with you.",
+        // Add 50 more dirty lines
+      ]
+    };
+
+    function loadCategory(category) {
+      const lines = pickupLines[category];
+      const lineContainer = document.getElementById("line-container");
+      const lineElement = document.getElementById("line");
+      
+      lineContainer.style.display = "block";
+      
+      let randomIndex = Math.floor(Math.random() * lines.length);
+      lineElement.textContent = lines[randomIndex];
+    }
+
+    function showRandomLine() {
+      const categories = Object.keys(pickupLines);
+      const randomCategory = categories[Math.floor(Math.random() * categories.length)];
+      loadCategory(randomCategory);
+    }
+
+    function copyLine() {
+      const lineElement = document.getElementById("line");
+      const text = lineElement.textContent;
+      navigator.clipboard.writeText(text);
+    }
+  </script>
+</body>
+</html>
